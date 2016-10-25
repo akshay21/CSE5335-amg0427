@@ -1,0 +1,130 @@
+<body>
+
+Please hover over the Firstname after clicking the button.
+
+<div ng-app="myApp" ng-controller="myCtrl">
+
+
+  <input type="button" style="cursor:pointer" value="Click Here" ng-click ="clickButton();drawChart()" /><br /><br />
+  <table STYLE="border: solid">
+    <tr STYLE="border: solid">
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Country</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+    </tr>
+
+
+    <tr   ng-repeat="employee in objList.employees">
+      <td ng-mouseover="setMarkerPosition(employee)">{{employee.firstName}}</td>
+      <td>{{employee.lastName}}</td>
+      <td>{{employee.Country}}</td>
+      <td>{{employee.lat}}</td>
+      <td>{{employee.lng}}</td>
+    </tr>
+
+  </table>
+
+
+
+</div>
+
+
+<style>
+  #map {
+    height: 400px;
+    width: 70%;
+  }
+</style>
+
+<div id="chart_div"></div>
+
+<div id="map"></div>
+
+
+<script type="text/javascript" >
+  var app = angular.module('myApp', []);
+
+  app.controller('myCtrl', ['$scope', '$http', function($scope, $http) {
+    $scope.objList=[]
+    $scope.clickButton = function() {
+      $http.get('/data1.json').success(function(data) {
+        $scope.objList = data;
+
+      });
+
+    }
+    //console.log(data)
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    $scope.drawChart=function () {
+
+      // Create the data table.
+      var info = new google.visualization.DataTable();
+      info.addColumn('string', 'Topping');
+      info.addColumn('number', 'Slices');
+      info.addRows([
+        ['Mushrooms', 3],
+        ['Onions', 1],
+        ['Olives', 1],
+        ['Zucchini', 1],
+        ['Pepperoni', 2]
+      ]);
+
+      // Set chart options
+      var options = {'title':'How Much Pizza I Ate Last Night',
+        'width':400,
+        'height':300};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      chart.draw(info, options);
+    }
+
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback($scope.drawChart);
+
+    $scope.setMarkerPosition=function (obj) {
+      //console.log("obj is :", obj)
+      var mapOptions = {
+        zoom: 4,
+        center: new google.maps.LatLng(obj.lat,obj.lng),
+
+        mapTypeId: google.maps.MapTypeId.TERRAIN
+      }
+      //console.log("Mapoptions are:",mapOptions);
+      $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+      //console.log("scope.map is: ",$scope.map);
+      $scope.markers=[];
+      marker=new google.maps.Marker({
+        position: new google.maps.LatLng(obj.lat,obj.lng),
+        map: $scope.map
+      });
+      //console.log([marker],"this is marker")
+      var infoWindow = new google.maps.InfoWindow();
+      marker.content='<div class="infoWindowContent">'+obj.Country+'</div>';
+      console.log(obj.Country);
+      console.log("marker content",marker.content)
+      $scope.markers.push(marker);
+    }
+
+
+  }]);
+
+</script>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfvYeC0y75CGERFsGF2Slv6w5UgP5YLmw">
+</script>
+
+
+</body>
