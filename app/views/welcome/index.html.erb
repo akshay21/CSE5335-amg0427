@@ -1,6 +1,7 @@
 <body>
 
 Please hover over the Firstname after clicking the button.
+Please Scroll
 
 <div ng-app="myApp" ng-controller="myCtrl">
 
@@ -10,6 +11,7 @@ Please hover over the Firstname after clicking the button.
     <tr STYLE="border: solid">
       <th>First name</th>
       <th>Last name</th>
+      <th>Height</th>
       <th>Country</th>
       <th>Latitude</th>
       <th>Longitude</th>
@@ -19,6 +21,7 @@ Please hover over the Firstname after clicking the button.
     <tr   ng-repeat="employee in objList.employees">
       <td ng-mouseover="setMarkerPosition(employee)">{{employee.firstName}}</td>
       <td>{{employee.lastName}}</td>
+      <td>{{employee.hgt}}</td>
       <td>{{employee.Country}}</td>
       <td>{{employee.lat}}</td>
       <td>{{employee.lng}}</td>
@@ -38,9 +41,11 @@ Please hover over the Firstname after clicking the button.
   }
 </style>
 
-<div id="chart_div"></div>
+
 
 <div id="map"></div>
+
+<div id="chart_div"></div>
 
 
 <script type="text/javascript" >
@@ -49,7 +54,7 @@ Please hover over the Firstname after clicking the button.
   app.controller('myCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.objList=[]
     $scope.clickButton = function() {
-      $http.get('/data1.json').success(function(data) {
+      $http.get('/data.json').success(function(data) {
         $scope.objList = data;
 
       });
@@ -66,18 +71,27 @@ Please hover over the Firstname after clicking the button.
 
       // Create the data table.
       var info = new google.visualization.DataTable();
-      info.addColumn('string', 'Topping');
-      info.addColumn('number', 'Slices');
+      info.addColumn('string', 'Person');
+      info.addColumn('number', 'Height');
       info.addRows([
-        ['Mushrooms', 3],
-        ['Onions', 1],
-        ['Olives', 1],
-        ['Zucchini', 1],
-        ['Pepperoni', 2]
-      ]);
+          ['John',6 ],
+          ['Anna',5],
+          ['Jackie',5.6],
+          ['Akshay',5.5],
+          ['Roronoa',6.4],
+          ['Mark',5.7],
+          ['Leo',5.8],
+          ['Cristiano',6.2],
+          ['Iniesta',6.1],
+          ['Emma',5.8],
+          ['Rahul',6],
+          ['Virat',6.3]
+
+          ]
+      );
 
       // Set chart options
-      var options = {'title':'How Much Pizza I Ate Last Night',
+      var options = {'title':'Height comparision',
         'width':400,
         'height':300};
 
