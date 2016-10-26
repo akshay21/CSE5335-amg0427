@@ -1,11 +1,49 @@
 == README
+Akshay Gawali
+ID:1001240427
+
+
+1. What server framework did you choose and why?
+A. I used Ruby-on-Rails framework for the sever side scripting. Rails is one leading frameworks which has large and active support community.
+Apart from that, the framework provides tools that help us deliver more features in less time. There are libraries (gems) for about everything,
+which is very helpful. Rails also decreases the burden of writing test cases with test automation.
+
+2. What client framework did you choose and why?
+A. I used AngularJS as client framework because, it provides features like two-way data binding, directives and most importantly
+client side MVC framework which other frameworks do not provide readily. It also provides dependency injection, filtering and templating.
+
+3. What aspect of the implementation did you find easy, if any, and why?
+A. At first I was struggling with the Rails but once I got used to it, it was very easy because it reflects any changes made in the
+javascript, html or other related files instantaneously with refresh in browser. I did not have to restart the server everytime I
+changed something. Also the natural language like syntax of ruby is easy is to understand.
+
+4. What aspect of the implementation did you find hard, if any, and why?
+A. I found the coding for client side that is, AngularJS, difficult beacuse despite of its so many great features its not easy to
+find the help on an issue easily and I found that debugging it in chrome console was also not easy.
+
+5. What components OTHER than your client and server framework did you install,
+   if any, and if so, what is their purpose for your solution?
+A. I used RubyMine IDE for developement and easy code management. It also integrates with GitHub easily and helps in Version Control.
+GitHub is another friendly way to stage a project and for my own ease I also installed Git Bash.
+
+6. What Ubuntu commands are required to deploy and run your server?
+A. cd /blog
+   bin/rails server
+   git init
+   git add .
+   git commit -m "First commit"
+   git remote add origin https://github.com/akshay21/CSE5335-amg0427
+   git remote -v
+   git push origin master
+
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
 Things you may want to cover:
 
-* Ruby version git test!!!!!
+* Ruby version
 
 * System dependencies
 
