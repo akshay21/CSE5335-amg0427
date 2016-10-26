@@ -1,7 +1,7 @@
 <body>
 
-Please hover over the Firstname after clicking the button.
-Please Scroll
+Please hover over the Firstname after clicking the button.<br>
+Please scroll down.
 
 <div ng-app="myApp" ng-controller="myCtrl">
 
@@ -49,8 +49,8 @@ Please Scroll
 
 
 <script type="text/javascript" >
+  //AngularJS part.
   var app = angular.module('myApp', []);
-
   app.controller('myCtrl', ['$scope', '$http', function($scope, $http) {
     $scope.objList=[]
     $scope.clickButton = function() {
@@ -60,10 +60,8 @@ Please Scroll
       });
 
     }
-    //console.log(data)
     // Load the Visualization API and the corechart package.
     google.charts.load('current', {'packages':['corechart']});
-
     // Callback that creates and populates a data table,
     // instantiates the pie chart, passes in the data and
     // draws it.
@@ -105,14 +103,12 @@ Please Scroll
     google.charts.setOnLoadCallback($scope.drawChart);
 
     $scope.setMarkerPosition=function (obj) {
-      //console.log("obj is :", obj)
       var mapOptions = {
         zoom: 4,
         center: new google.maps.LatLng(obj.lat,obj.lng),
 
         mapTypeId: google.maps.MapTypeId.TERRAIN
       }
-      //console.log("Mapoptions are:",mapOptions);
       $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
       //console.log("scope.map is: ",$scope.map);
       $scope.markers=[];
@@ -120,11 +116,9 @@ Please Scroll
         position: new google.maps.LatLng(obj.lat,obj.lng),
         map: $scope.map
       });
-      //console.log([marker],"this is marker")
       var infoWindow = new google.maps.InfoWindow();
       marker.content='<div class="infoWindowContent">'+obj.Country+'</div>';
       console.log(obj.Country);
-      console.log("marker content",marker.content)
       $scope.markers.push(marker);
     }
 
